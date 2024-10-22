@@ -1,0 +1,87 @@
+// Fetch stock data from the backend API (or a third-party API)
+function getStockData() {
+    const ticker = document.getElementById('stockTicker').value;
+
+    if (!ticker) {
+        alert("Please enter a stock ticker");
+        return;
+    }
+
+    // Call the stock data API (assuming a Python Flask backend)
+    fetch(`/api/stock/${ticker}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update the UI with the fetched data
+            const stockDataDiv = document.getElementById('stockData');
+            stockDataDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            stockDataDiv.classList.add('visible'); // Add fading effect
+        })
+        .catch(error => {
+            console.error('Error fetching stock data:', error);
+            alert('Error fetching stock data');
+        });
+}
+
+// Run trend analysis based on a stock ticker
+function runTrendAnalysis() {
+    const ticker = document.getElementById('trendTicker').value;
+
+    if (!ticker) {
+        alert("Please enter a stock ticker");
+        return;
+    }
+
+    // Call the trend analysis API
+    fetch(`/api/trend_analysis/${ticker}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update the UI with trend analysis data
+            const trendDataDiv = document.getElementById('trendData');
+            trendDataDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            trendDataDiv.classList.add('visible'); // Add fading effect
+        })
+        .catch(error => {
+            console.error('Error running trend analysis:', error);
+            alert('Error running trend analysis');
+        });
+}
+
+// Place a trade
+function placeTrade() {
+    const ticker = document.getElementById('tradeTicker').value;
+    const action = document.getElementById('tradeAction').value;
+    const quantity = document.getElementById('tradeQuantity').value;
+    const price = document.getElementById('tradePrice').value;
+
+    if (!ticker || !action || !quantity || !price) {
+        alert("Please fill in all fields to place a trade");
+        return;
+    }
+
+    const tradeData = {
+        ticker: ticker,
+        action: action,
+        quantity: quantity,
+        price: price
+    };
+
+    // Call the trade API
+    fetch('/api/trade', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tradeData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Update the UI with trade result
+        const tradeResultDiv = document.getElementById('tradeResult');
+        tradeResultDiv.innerHTML = `<pre>${JSON.stringify(data.message, null, 2)}</pre>`;
+        tradeResultDiv.classList.add('visible'); // Add fading effect
+    })
+    .catch(error => {
+        console.error('Error placing trade:', error);
+        alert('Error placing trade');
+    });
+}

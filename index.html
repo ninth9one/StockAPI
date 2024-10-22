@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Tracker App</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-mQ93Xy1BJyZsBWrPoHvn5qs88DyNpBbciwWv5WH3RxUun7IrO+M1p1lDr9yyTtW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-dark text-light d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="card p-4 shadow-lg bg-dark rounded-3">
+                    <header class="text-center mb-5">
+                        <h1>Stock Tracker & Trading App</h1>
+                    </header>
+
+                    <main>
+                        <section class="stock-search mb-4">
+                            <h2 class="text-center">Search Stock Data</h2>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="stockTicker" placeholder="Enter stock ticker">
+                                <button class="btn btn-primary" onclick="getStockData()">Get Stock Data</button>
+                            </div>
+                            <div id="stockData" class="fade"></div>
+                        </section>
+
+                        <section class="trend-analysis mb-4">
+                            <h2 class="text-center">Run Trend Analysis</h2>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="trendTicker" placeholder="Enter stock ticker">
+                                <button class="btn btn-primary" onclick="runTrendAnalysis()">Run Trend Analysis</button>
+                            </div>
+                            <div id="trendData" class="fade"></div>
+                        </section>
+
+                        <section class="trade-form mb-4">
+                            <h2 class="text-center">Place a Trade</h2>
+                            <div class="mb-2">
+                                <input type="text" class="form-control mb-2" id="tradeTicker" placeholder="Stock ticker">
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" class="form-control mb-2" id="tradeAction" placeholder="Buy or Sell">
+                            </div>
+                            <div class="mb-2">
+                                <input type="number" class="form-control mb-2" id="tradeQuantity" placeholder="Quantity">
+                            </div>
+                            <div class="mb-2">
+                                <input type="number" class="form-control mb-2" id="tradePrice" placeholder="Price">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="placeTrade()">Place Trade</button>
+                            <div id="tradeResult" class="fade"></div>
+                        </section>
+                    </main>
+
+                    <footer class="text-center mt-5">
+                        <p>&copy; 2024 Stock Tracker App</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93Xy1BJyZsBWrPoHvn5qs88DyNpBbciwWv5WH3RxUun7IrO+M1p1lDr9yyTtW3" crossorigin="anonymous"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
