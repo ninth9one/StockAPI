@@ -52,3 +52,42 @@ def trend_analysis(ticker):
         'rsi': 14,
         'recommendation': 'buy' if ticker.lower() == 'aapl' else 'hold'
     }
+# !moving_average! A simple moving average
+# !rsi! Relative strength Index
+# !recommendation! A simplistic recommendation based on whether the stock is Apple (AAPL)
+
+# create an API route for Trend Analysis
+@app.route('/api/trend_analysis/<ticker>', methods=['GET'])
+def get_trend_analysis(ticker):
+    data = trend_analysis(ticker)
+    return jsonify(data)
+# defines another API route that provides trend analysis for the specified stock ticker
+# !trend_analysis()! function is used to return the placeholder analysis data as a JSON response
+
+# simulating a trade
+@app.route('/api/trade', methods=['POST'])
+def place_trade():
+    trade_data = request.json
+    ticker = trade_data.get('ticker')
+    action = trade_data.get('action')
+    quantity = trade_data.get('quantity')
+    price = trade_data.get('price')
+
+    # Example logic for placing a trade
+    if action.lower() not in ['buy', 'sell']:
+        return jsonify({'message': 'Invalid action. Must be "buy" or "sell".'}), 400
+
+    return jsonify({
+        'message': f'{action.capitalize()} order placed for {quantity} shares of {ticker} at ${price} per share.'
+    })
+# this route listens to POST requests at !/api/trade! simulates stock trades
+# !request.json! retrieves the JSON data sent in the request body
+# the code extracts the !ticker! !action! !quantity! !price! from the request data
+# the trade is validated to ensure the action is either !buy! or !sell! if not it returns a 400 error with a message
+# if valid it will return a confirmation message
+
+# run the flask app
+if __name__ == '__main__':
+    app.run(debug=True)
+# this is the entry point of the application, when the script is executed the flask server starts up
+# !debug=True! this enables flask's debug mode, which provides error messages during development
